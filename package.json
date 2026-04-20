@@ -1,7 +1,7 @@
 {
 	"name": "cherrypucker",
 	"displayName": "CherryPucker",
-	"publisher": "cherrypucker",
+	"publisher": "markrobbins",
 	"version": "0.0.1",
 	"description": "Copy JSON-driven templates and property values from the object your cursor is inside.",
 	"license": "MIT",

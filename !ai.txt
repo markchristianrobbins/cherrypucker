@@ -21,3 +21,26 @@ copy object value (of object cursor is in)
 copy object value quoted (of object cursor is in)
 
 each of those commands show a picklist of object properties and values
+
+PHASE 2:
+add this functionality to the extension
+commands:
+- each of thes commands below, for the json object where the cursor is, show a picker of property names, then do the command, then show a notification:
+    - copyPropertyValue: copy the value, do not move the cursor, notify showing action and clipboard contents
+    - pastePropertyValue: replace the property value with clipboard, but do not move the cursor
+    - pastePropertyValueAndSelect: replace the property with clipboard, then select the value
+    - deletePropertyValue: delete the value then put the cursor where the delete occurred
+    - jumpToPropertyName: select the picked property name, as the selector focuses its items, scroll to show the property, on escape restore cursor position
+    - copyPropertyName: copy the name, do not move the cursor, notify showing action and clipboard contents
+    - pastePropertyName: replace the property name with clipboard, but do not move the cursor
+    - pastePropertyNameAndSelect: replace the property name with clipboard, then select the value
+    - deletePropertyName: delete the name then put the cursor where the delete occurred
+    - copyProperty: copy the property, including indentation, do not move the cursor, notify showing action and clipboard contents
+    - dupeProperty: duplicate the property, including indentation, select the property name, notify showing action and clipboard contents
+- without a picker:
+    - copyObject: copy the object, including indentation, do not move the cursor, notify showing action and clipboard contents
+    - dupeObject: duplicate the object, including indentation, move the cursor to the new object , notify showing action and clipboard contents
+    - sortObjectProperties: sort structure by first (current) level names
+    - sortObjectPropertiesDeep: sort structure by all level names
+clipboard notification may be truncated to be reasonable
+also put notifications on existing commands
