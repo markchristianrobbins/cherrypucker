@@ -70,20 +70,42 @@ function getUserKeybindingsPath() {
 
 function readUserKeybindings() {
 	const kbPath = getUserKeybindingsPath();
-	if (!fs.existsSync(kbPath)) return { kbPath, bindings: [] };
+	if (!fs.existsSync(kbPath)) return { kbPath, bindings: [], raw: '' };
 	const raw = fs.readFileSync(kbPath, 'utf8');
 	const parsed = jsonc.parse(raw);
 	if (!Array.isArray(parsed)) throw new Error('keybindings.json must contain a JSON array.');
-	return { kbPath, bindings: parsed };
+	return { kbPath, bindings: parsed, raw };
 }
 
-function writeUserKeybindings(kbPath, bindings) {
-	fs.writeFileSync(kbPath, `${JSON.stringify(bindings, null, '\t')}\n`, 'utf8');
+function getEditorIndentFallback() {
+	const editorCfg = vscode.workspace.getConfiguration('editor');
+	const insertSpaces = editorCfg.get('insertSpaces', true);
+	const tabSize = Number(editorCfg.get('tabSize', 4));
+	if (!insertSpaces) return '\t';
+	return ' '.repeat(Number.isFinite(tabSize) && tabSize > 0 ? tabSize : 4);
+}
+
+function detectIndentFromContent(raw) {
+	const text = String(raw || '');
+	const lines = text.split(/\r?\n/);
+	for (const line of lines) {
+		const m = line.match(/^(\s+)"[^"]+"\s*:/);
+		if (!m) continue;
+		const indent = m[1];
+		if (indent.includes('\t')) return '\t';
+		return indent;
+	}
+	return null;
+}
+
+function writeUserKeybindings(kbPath, bindings, raw) {
+	const indent = detectIndentFromContent(raw) || getEditorIndentFallback();
+	fs.writeFileSync(kbPath, `${JSON.stringify(bindings, null, indent)}\n`, 'utf8');
 }
 
 async function runApplySuggestedBindings() {
 	try {
-		const { kbPath, bindings } = readUserKeybindings();
+		const { kbPath, bindings, raw } = readUserKeybindings();
 		const existing = Array.isArray(bindings) ? [...bindings] : [];
 		const applied = [];
 		const duplicates = [];
@@ -98,7 +120,7 @@ async function runApplySuggestedBindings() {
 			applied.push(suggested);
 		}
 
-		writeUserKeybindings(kbPath, existing);
+		writeUserKeybindings(kbPath, existing, raw);
 		if (duplicates.length) await vscode.env.clipboard.writeText(duplicates.join('\n'));
 		vscode.window.showInformationMessage(`CherryPucker: Applied ${applied.length} suggested keybindings. Duplicates: ${duplicates.length}${duplicates.length ? ' (copied to clipboard)' : ''}`);
 	} catch (err) {
@@ -108,11 +130,11 @@ async function runApplySuggestedBindings() {
 
 async function runRemoveSuggestedBindings() {
 	try {
-		const { kbPath, bindings } = readUserKeybindings();
+		const { kbPath, bindings, raw } = readUserKeybindings();
 		const before = bindings.length;
 		const suggestedPairs = new Set(SUGGESTED_KEYBINDINGS.map((s) => `${s.command}@@${s.key.toLowerCase()}`));
 		const filtered = bindings.filter((b) => !suggestedPairs.has(`${b.command}@@${String(b.key || '').toLowerCase()}`));
-		writeUserKeybindings(kbPath, filtered);
+		writeUserKeybindings(kbPath, filtered, raw);
 		vscode.window.showInformationMessage(`CherryPucker: Removed ${before - filtered.length} suggested keybindings.`);
 	} catch (err) {
 		vscode.window.showErrorMessage(`CherryPucker: Failed to remove suggested keybindings: ${err.message}`);
