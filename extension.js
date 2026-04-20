@@ -36,7 +36,7 @@ const SUGGESTED_KEYBINDINGS = [
 	{ command: 'cherryPucker.copyTemplate10', key: 'alt+insert shift+0', when: 'editorTextFocus' },
 	{ command: 'cherryPucker.copyTemplate2', key: 'alt+insert shift+2', when: 'editorTextFocus' },
 	{ command: 'cherryPucker.copyTemplate3', key: 'alt+insert shift+3', when: 'editorTextFocus' },
-	{ command: 'cherryPucker.copyTemplate4', key: 'alt+insert shift+3', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate4', key: 'alt+insert shift+4', when: 'editorTextFocus' },
 	{ command: 'cherryPucker.copyTemplate5', key: 'alt+insert shift+5', when: 'editorTextFocus' },
 	{ command: 'cherryPucker.copyTemplate6', key: 'alt+insert shift+6', when: 'editorTextFocus' },
 	{ command: 'cherryPucker.copyTemplate7', key: 'alt+insert shift+7', when: 'editorTextFocus' },

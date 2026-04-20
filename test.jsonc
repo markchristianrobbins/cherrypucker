@@ -1,0 +1,272 @@
+{
+	// CherryPucker comprehensive test fixture.
+	// Open this file in VS Code and run commands with the cursor inside the target sections.
+	"meta": {
+		"project": "CherryPucker",
+		"fixtureVersion": "1.0.0",
+		"purpose": "Exercise object, property, array, template, and picker commands with mixed data shapes."
+	},
+	// Use these values to seed clipboard before paste/set commands.
+	"clipboardSeeds": {
+		"stringPlain": "renamed_from_clipboard",
+		"stringJsonQuoted": "\"quoted-seed\"",
+		"number": "42",
+		"boolean": "true",
+		"jsonObject": "{\"from\":\"clipboard\",\"priority\":9}",
+		"jsonArray": "[\"red\",\"green\",\"blue\"]"
+	},
+	// Target object for most property/object commands.
+	"record": {
+		"id": 9001,
+		"username": "arcadia",
+		"displayName": "Arcadia Bloom",
+		"email": "arcadia@example.com",
+		"active": true,
+		"score": 97.35,
+		"roles": [
+			"admin",
+			"analyst"
+		],
+		"profile": {
+			"title": "Senior Operator",
+			"timezone": "America/New_York",
+			"preferences": {
+				"theme": "sunset",
+				"notifications": {
+					"email": true,
+					"sms": false,
+					"push": true
+				}
+			}
+		},
+		"audit": {
+			"createdAt": "2025-01-01T10:00:00Z",
+			"updatedAt": "2026-04-20T11:45:00Z",
+			"updatedBy": "system"
+		},
+		"nullable": null,
+		"specialChars": "line1\\nline2\\t\\\"quoted\\\""
+	},
+	// Designed for sortObjectProperties and sortObjectPropertiesDeep.
+	"unsortedObject": {
+		"zeta": 1,
+		"alpha": 2,
+		"delta": {
+			"q": 16,
+			"a": 1,
+			"m": 9
+		},
+		"beta": [
+			{
+				"z": 2,
+				"a": 1
+			},
+			{
+				"k": 11,
+				"b": 7
+			}
+		],
+		"gamma": "middle"
+	},
+	// Designed for array commands that pick by a simple property/value.
+	"users": [
+		{
+			"id": 100,
+			"team": "core",
+			"status": "active",
+			"priority": 3,
+			"name": "Ari",
+			"region": "NA",
+			"meta": {
+				"tier": "gold",
+				"tags": [
+					"ops",
+					"oncall"
+				]
+			}
+		},
+		{
+			"id": 101,
+			"team": "core",
+			"status": "inactive",
+			"priority": 1,
+			"name": "Bea",
+			"region": "EU",
+			"meta": {
+				"tier": "silver",
+				"tags": [
+					"support"
+				]
+			}
+		},
+		{
+			"id": 102,
+			"team": "growth",
+			"status": "active",
+			"priority": 2,
+			"name": "Cy",
+			"region": "NA",
+			"meta": {
+				"tier": "gold",
+				"tags": [
+					"exp"
+				]
+			}
+		},
+		{
+			"id": 103,
+			"team": "core",
+			"status": "active",
+			"priority": 2,
+			"name": "Dee",
+			"region": "APAC",
+			"meta": {
+				"tier": "bronze",
+				"tags": []
+			}
+		},
+		{
+			"id": 104,
+			"team": "growth",
+			"status": "active",
+			"priority": 4,
+			"name": "Eli",
+			"region": "NA",
+			"meta": {
+				"tier": "silver",
+				"tags": [
+					"new"
+				]
+			}
+		}
+	],
+	// Mixed array verifies "No object items" edge handling when selecting non-objects.
+	"mixedArray": [
+		{
+			"kind": "object",
+			"flag": true,
+			"bucket": "keep"
+		},
+		77,
+		"string-item",
+		null,
+		[
+			1,
+			2,
+			3
+		],
+		{
+			"kind": "object",
+			"flag": false,
+			"bucket": "drop"
+		}
+	],
+	// Multiple similar properties for multi-selection testing on objects in arrays.
+	"orders": [
+		{
+			"orderId": "A-1000",
+			"customerId": "C-01",
+			"state": "pending",
+			"amount": 125.5,
+			"currency": "USD",
+			"shipping": {
+				"method": "ground",
+				"etaDays": 5
+			}
+		},
+		{
+			"orderId": "A-1001",
+			"customerId": "C-02",
+			"state": "pending",
+			"amount": 220,
+			"currency": "USD",
+			"shipping": {
+				"method": "air",
+				"etaDays": 2
+			}
+		},
+		{
+			"orderId": "A-1002",
+			"customerId": "C-03",
+			"state": "shipped",
+			"amount": 80,
+			"currency": "EUR",
+			"shipping": {
+				"method": "ground",
+				"etaDays": 6
+			}
+		}
+	],
+	// Template source object for copyTemplate1..10.
+	"templateSource": {
+		"person": {
+			"id": "USR-778",
+			"name": "Rin Hart",
+			"email": "rin.hart@example.com"
+		},
+		"account": {
+			"id": "ACCT-42",
+			"plan": "enterprise",
+			"limits": {
+				"projects": 50,
+				"members": 500
+			}
+		},
+		"stats": {
+			"lastLogin": "2026-04-19T21:02:00Z",
+			"sessions": 134,
+			"mfaEnabled": true
+		},
+		"tags": [
+			"alpha",
+			"beta",
+			"vip"
+		]
+	},
+	// Optional runbook for manual validation.
+	"runbook": {
+		"objectCommands": [
+			"copyObject",
+			"dupeObject",
+			"sortObjectProperties",
+			"sortObjectPropertiesDeep"
+		],
+		"propertyCommands": [
+			"copyPropertyValue",
+			"pastePropertyValue",
+			"pastePropertyValueAndSelect",
+			"deletePropertyValue",
+			"jumpToPropertyName",
+			"copyPropertyName",
+			"pastePropertyName",
+			"pastePropertyNameAndSelect",
+			"deletePropertyName",
+			"copyProperty",
+			"dupeProperty",
+			"movePropertyUp",
+			"movePropertyDown",
+			"deleteProperty"
+		],
+		"arrayCommands": [
+			"sortObjectArrayByPropertyValueAscending",
+			"sortObjectArrayByPropertyValueDescending",
+			"deleteObjectsFromArrayByPropertyValue",
+			"copyObjectsFromArrayByPropertyValue",
+			"cutObjectsFromArrayByPropertyValue",
+			"setObjectsArrayPropertyValue"
+		],
+		"otherCommands": [
+			"copyObjectValue",
+			"copyObjectValueQuoted",
+			"showPickerForAllCommands",
+			"applySuggestedKeybindings",
+			"removeSuggestedKeybindings",
+			"copyTemplate1..copyTemplate10"
+		],
+		"notes": [
+			"Use single cursor inside record/templateSource/unsortedObject/users as needed.",
+			"Use multi-cursor selections across objects in orders or users to test multi-target property edits.",
+			"For setObjectsArrayPropertyValue, prefill clipboard with clipboardSeeds.jsonObject or clipboardSeeds.number."
+		]
+	}
+}

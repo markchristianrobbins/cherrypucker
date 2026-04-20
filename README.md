@@ -79,7 +79,7 @@ The package command generates a `.vsix` using `vsce`.
 `cherryPucker.copyTemplate10`, `alt+insert shift+0`
 `cherryPucker.copyTemplate2`, `alt+insert shift+2`
 `cherryPucker.copyTemplate3`, `alt+insert shift+3`
-`cherryPucker.copyTemplate4`, `alt+insert shift+3`
+`cherryPucker.copyTemplate4`, `alt+insert shift+4`
 `cherryPucker.copyTemplate5`, `alt+insert shift+5`
 `cherryPucker.copyTemplate6`, `alt+insert shift+6`
 `cherryPucker.copyTemplate7`, `alt+insert shift+7`
