@@ -44,3 +44,89 @@ commands:
     - sortObjectPropertiesDeep: sort structure by all level names
 clipboard notification may be truncated to be reasonable
 also put notifications on existing commands
+
+Phase 2a:
+when a property value is deleted, and the value is a string, then make the value "", anything else, just delete the value code
+respect tab/spaces indentation
+
+Phase 2b:
+Pasting clipboard into property value, retain quotes if a string, strip quotes from string on clipboard if neccessary
+Jump to property name should select the name not including quotes
+the picker should also display the values for simple values
+duplicate property fails for properties without a trailing comment
+add commands:
+- move property up - maintain/adjust commas
+- move property down - maintain/adjust commas
+- delete property - maintain/adjust commas
+- sort (ascending/decending) object array by property names value (picker) - restrict to selection if exists
+- delete objects from array with propert names (picker) value - restrict to selection if exists
+- copy objects from array with property names (picker) value - restrict to selection if exists
+- cut objects from array with property names (picker) value - restrict to selection if exists
+- set objects array property names (picker) value - restrict to selection if exists
+
+adjust commands:
+if objects are selected, only apply to selected objects
+    - copyPropertyValue: seperate by newlines
+    - pastePropertyValue: create property if required
+    - pastePropertyValueAndSelect: replace the properties with clipboard, select all changed
+    - deletePropertyValue: delete the value then put the cursors where the deletes occurred
+    - pastePropertyName: replace the properties name with clipboard, but do not move the cursor
+    - pastePropertyNameAndSelect: replace the properties names with clipboard, then select the values
+    - deletePropertyName: delete the names then put the cursor where the deletes occurred
+    - copyProperty: copy the properties, including indentation, seperated by newlines, do not move the cursor
+    - dupeProperty: duplicate the properties, including indentation, select the properties names
+new command:
+- show picker for all commands
+
+after duplicate property, select name contents, inside of quotes
+
+Current keybindings (CherryPucker) from VS Code user keybindings
+- Source: C:\Users\markc\AppData\Roaming\Code\User\keybindings.json
+- [direct] key: insert v | command: cherryPucker.copyObjectValue | when: (no when)
+- [direct] key: insert shift+v | command: cherryPucker.copyObjectValueQuoted | when: (no when)
+- [direct] key: alt+insert shift+1 | command: cherryPucker.copyTemplate1 | when: (no when)
+
+Phase 3c:
+add when clause to commands that require 'editorTextFocus'
+write the following suggested key bindings in readme:
+
+cherryPucker.copyObject, 								alt+insert o
+cherryPucker.copyObjectsFromArrayByPropertyValue,		alt+insert ctrl+v
+cherryPucker.copyObjectValue, 							insert v
+cherryPucker.copyObjectValueQuoted,						insert shift+v
+cherryPucker.copyProperty,								alt+insert alt+p
+cherryPucker.copyPropertyName,							alt+insert alt+n
+cherryPucker.copyPropertyValue,							alt+insert alt+v
+cherryPucker.copyTemplate1,								alt+insert shift+1
+cherryPucker.copyTemplate10,							alt+insert shift+0
+cherryPucker.copyTemplate2,								alt+insert shift+2
+cherryPucker.copyTemplate3,								alt+insert shift+3
+cherryPucker.copyTemplate4,								alt+insert shift+3
+cherryPucker.copyTemplate5,								alt+insert shift+5
+cherryPucker.copyTemplate6,								alt+insert shift+6
+cherryPucker.copyTemplate7,								alt+insert shift+7
+cherryPucker.copyTemplate8,								alt+insert shift+8
+cherryPucker.copyTemplate9,								alt+insert shift+9
+cherryPucker.cutObjectsFromArrayByPropertyValue,		alt+delete ctrl+x
+cherryPucker.deleteObjectsFromArrayByPropertyValue,		alt+delete ctrl+v
+cherryPucker.deleteProperty,							alt+delete p
+cherryPucker.deletePropertyName,						alt+delete n
+cherryPucker.deletePropertyValue,						alt+delete v
+cherryPucker.dupeObject,								alt+insert ctrl+d
+cherryPucker.dupeProperty,								alt+insert P
+cherryPucker.jumpToPropertyName,						insert n
+cherryPucker.movePropertyDown,							ctrl+alt+shift+down
+cherryPucker.movePropertyUp,							ctrl+alt+shift+up
+cherryPucker.pastePropertyName,							alt+insert n
+cherryPucker.pastePropertyNameAndSelect,				alt+insert shift+n
+cherryPucker.pastePropertyValue,						alt+insert v
+cherryPucker.pastePropertyValueAndSelect,				alt+insert shift+v
+cherryPucker.setObjectsArrayPropertyValue,				alt+insert ctrl+alt+v
+cherryPucker.showPickerForAllCommands,					alt+` f12
+cherryPucker.sortObjectArrayByPropertyValueAscending,	alt+insert ctrl+alt+v
+cherryPucker.sortObjectArrayByPropertyValueDescending,	alt+insert ctrl+alt+shift+v
+cherryPucker.sortObjectProperties,						alt+insert ctrl+p
+cherryPucker.sortObjectPropertiesDeep,					alt+insert ctrl+shift+p
+
+add a command to apply the suggested bindings, do not set bindings that exist, but notify and put the duplicate bindings on clipboard
+add a command to remove the suggested bindings

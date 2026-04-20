@@ -52,7 +52,32 @@
 		"onCommand:cherryPucker.copyTemplate9",
 		"onCommand:cherryPucker.copyTemplate10",
 		"onCommand:cherryPucker.copyObjectValue",
-		"onCommand:cherryPucker.copyObjectValueQuoted"
+		"onCommand:cherryPucker.copyObjectValueQuoted",
+		"onCommand:cherryPucker.copyPropertyValue",
+		"onCommand:cherryPucker.pastePropertyValue",
+		"onCommand:cherryPucker.pastePropertyValueAndSelect",
+		"onCommand:cherryPucker.deletePropertyValue",
+		"onCommand:cherryPucker.jumpToPropertyName",
+		"onCommand:cherryPucker.copyPropertyName",
+		"onCommand:cherryPucker.pastePropertyName",
+		"onCommand:cherryPucker.pastePropertyNameAndSelect",
+		"onCommand:cherryPucker.deletePropertyName",
+		"onCommand:cherryPucker.copyProperty",
+		"onCommand:cherryPucker.dupeProperty",
+		"onCommand:cherryPucker.copyObject",
+		"onCommand:cherryPucker.dupeObject",
+		"onCommand:cherryPucker.sortObjectProperties",
+		"onCommand:cherryPucker.sortObjectPropertiesDeep",
+		"onCommand:cherryPucker.movePropertyUp",
+		"onCommand:cherryPucker.movePropertyDown",
+		"onCommand:cherryPucker.deleteProperty",
+		"onCommand:cherryPucker.sortObjectArrayByPropertyValueAscending",
+		"onCommand:cherryPucker.sortObjectArrayByPropertyValueDescending",
+		"onCommand:cherryPucker.deleteObjectsFromArrayByPropertyValue",
+		"onCommand:cherryPucker.copyObjectsFromArrayByPropertyValue",
+		"onCommand:cherryPucker.cutObjectsFromArrayByPropertyValue",
+		"onCommand:cherryPucker.setObjectsArrayPropertyValue",
+		"onCommand:cherryPucker.showPickerForAllCommands"
 	],
 	"contributes": {
 		"commands": [
@@ -103,6 +128,106 @@
 			{
 				"command": "cherryPucker.copyObjectValueQuoted",
 				"title": "CherryPucker: Copy Object Value (Quoted)"
+			},
+			{
+				"command": "cherryPucker.copyPropertyValue",
+				"title": "CherryPucker: Copy Property Value"
+			},
+			{
+				"command": "cherryPucker.pastePropertyValue",
+				"title": "CherryPucker: Paste Property Value"
+			},
+			{
+				"command": "cherryPucker.pastePropertyValueAndSelect",
+				"title": "CherryPucker: Paste Property Value and Select"
+			},
+			{
+				"command": "cherryPucker.deletePropertyValue",
+				"title": "CherryPucker: Delete Property Value"
+			},
+			{
+				"command": "cherryPucker.jumpToPropertyName",
+				"title": "CherryPucker: Jump to Property Name"
+			},
+			{
+				"command": "cherryPucker.copyPropertyName",
+				"title": "CherryPucker: Copy Property Name"
+			},
+			{
+				"command": "cherryPucker.pastePropertyName",
+				"title": "CherryPucker: Paste Property Name"
+			},
+			{
+				"command": "cherryPucker.pastePropertyNameAndSelect",
+				"title": "CherryPucker: Paste Property Name and Select Value"
+			},
+			{
+				"command": "cherryPucker.deletePropertyName",
+				"title": "CherryPucker: Delete Property Name"
+			},
+			{
+				"command": "cherryPucker.copyProperty",
+				"title": "CherryPucker: Copy Property"
+			},
+			{
+				"command": "cherryPucker.dupeProperty",
+				"title": "CherryPucker: Duplicate Property"
+			},
+			{
+				"command": "cherryPucker.copyObject",
+				"title": "CherryPucker: Copy Object"
+			},
+			{
+				"command": "cherryPucker.dupeObject",
+				"title": "CherryPucker: Duplicate Object"
+			},
+			{
+				"command": "cherryPucker.sortObjectProperties",
+				"title": "CherryPucker: Sort Object Properties"
+			},
+			{
+				"command": "cherryPucker.sortObjectPropertiesDeep",
+				"title": "CherryPucker: Sort Object Properties (Deep)"
+			},
+			{
+				"command": "cherryPucker.movePropertyUp",
+				"title": "CherryPucker: Move Property Up"
+			},
+			{
+				"command": "cherryPucker.movePropertyDown",
+				"title": "CherryPucker: Move Property Down"
+			},
+			{
+				"command": "cherryPucker.deleteProperty",
+				"title": "CherryPucker: Delete Property"
+			},
+			{
+				"command": "cherryPucker.sortObjectArrayByPropertyValueAscending",
+				"title": "CherryPucker: Sort Object Array by Property Value (Ascending)"
+			},
+			{
+				"command": "cherryPucker.sortObjectArrayByPropertyValueDescending",
+				"title": "CherryPucker: Sort Object Array by Property Value (Descending)"
+			},
+			{
+				"command": "cherryPucker.deleteObjectsFromArrayByPropertyValue",
+				"title": "CherryPucker: Delete Objects From Array by Property Value"
+			},
+			{
+				"command": "cherryPucker.copyObjectsFromArrayByPropertyValue",
+				"title": "CherryPucker: Copy Objects From Array by Property Value"
+			},
+			{
+				"command": "cherryPucker.cutObjectsFromArrayByPropertyValue",
+				"title": "CherryPucker: Cut Objects From Array by Property Value"
+			},
+			{
+				"command": "cherryPucker.setObjectsArrayPropertyValue",
+				"title": "CherryPucker: Set Objects Array Property Value"
+			},
+			{
+				"command": "cherryPucker.showPickerForAllCommands",
+				"title": "CherryPucker: Show Picker for All Commands"
 			}
 		],
 		"configuration": {
