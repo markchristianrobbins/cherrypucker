@@ -2,7 +2,7 @@
 	"name": "cherrypucker",
 	"displayName": "CherryPucker",
 	"publisher": "markrobbins",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"description": "Copy JSON-driven templates and property values from the object your cursor is inside.",
 	"license": "MIT",
 	"main": "extension.js",
@@ -33,7 +33,8 @@
 		"extension.js",
 		"README.md",
 		"LICENSE",
-		"icon.png"
+		"icon.png",
+		"node_modules/jsonc-parser/**"
 	],
 	"scripts": {
 		"lint": "echo \"No lint configured yet\"",
@@ -77,157 +78,204 @@
 		"onCommand:cherryPucker.copyObjectsFromArrayByPropertyValue",
 		"onCommand:cherryPucker.cutObjectsFromArrayByPropertyValue",
 		"onCommand:cherryPucker.setObjectsArrayPropertyValue",
-		"onCommand:cherryPucker.showPickerForAllCommands"
+		"onCommand:cherryPucker.showPickerForAllCommands",
+		"onCommand:cherryPucker.applySuggestedKeybindings",
+		"onCommand:cherryPucker.removeSuggestedKeybindings"
 	],
 	"contributes": {
 		"commands": [
 			{
 				"command": "cherryPucker.copyTemplate1",
-				"title": "CherryPucker: Copy Template 1"
+				"title": "CherryPucker: Copy Template 1",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate2",
-				"title": "CherryPucker: Copy Template 2"
+				"title": "CherryPucker: Copy Template 2",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate3",
-				"title": "CherryPucker: Copy Template 3"
+				"title": "CherryPucker: Copy Template 3",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate4",
-				"title": "CherryPucker: Copy Template 4"
+				"title": "CherryPucker: Copy Template 4",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate5",
-				"title": "CherryPucker: Copy Template 5"
+				"title": "CherryPucker: Copy Template 5",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate6",
-				"title": "CherryPucker: Copy Template 6"
+				"title": "CherryPucker: Copy Template 6",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate7",
-				"title": "CherryPucker: Copy Template 7"
+				"title": "CherryPucker: Copy Template 7",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate8",
-				"title": "CherryPucker: Copy Template 8"
+				"title": "CherryPucker: Copy Template 8",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate9",
-				"title": "CherryPucker: Copy Template 9"
+				"title": "CherryPucker: Copy Template 9",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyTemplate10",
-				"title": "CherryPucker: Copy Template 10"
+				"title": "CherryPucker: Copy Template 10",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyObjectValue",
-				"title": "CherryPucker: Copy Object Value"
+				"title": "CherryPucker: Copy Object Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyObjectValueQuoted",
-				"title": "CherryPucker: Copy Object Value (Quoted)"
+				"title": "CherryPucker: Copy Object Value (Quoted)",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyPropertyValue",
-				"title": "CherryPucker: Copy Property Value"
+				"title": "CherryPucker: Copy Property Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.pastePropertyValue",
-				"title": "CherryPucker: Paste Property Value"
+				"title": "CherryPucker: Paste Property Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.pastePropertyValueAndSelect",
-				"title": "CherryPucker: Paste Property Value and Select"
+				"title": "CherryPucker: Paste Property Value and Select",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.deletePropertyValue",
-				"title": "CherryPucker: Delete Property Value"
+				"title": "CherryPucker: Delete Property Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.jumpToPropertyName",
-				"title": "CherryPucker: Jump to Property Name"
+				"title": "CherryPucker: Jump to Property Name",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyPropertyName",
-				"title": "CherryPucker: Copy Property Name"
+				"title": "CherryPucker: Copy Property Name",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.pastePropertyName",
-				"title": "CherryPucker: Paste Property Name"
+				"title": "CherryPucker: Paste Property Name",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.pastePropertyNameAndSelect",
-				"title": "CherryPucker: Paste Property Name and Select Value"
+				"title": "CherryPucker: Paste Property Name and Select Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.deletePropertyName",
-				"title": "CherryPucker: Delete Property Name"
+				"title": "CherryPucker: Delete Property Name",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyProperty",
-				"title": "CherryPucker: Copy Property"
+				"title": "CherryPucker: Copy Property",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.dupeProperty",
-				"title": "CherryPucker: Duplicate Property"
+				"title": "CherryPucker: Duplicate Property",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyObject",
-				"title": "CherryPucker: Copy Object"
+				"title": "CherryPucker: Copy Object",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.dupeObject",
-				"title": "CherryPucker: Duplicate Object"
+				"title": "CherryPucker: Duplicate Object",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.sortObjectProperties",
-				"title": "CherryPucker: Sort Object Properties"
+				"title": "CherryPucker: Sort Object Properties",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.sortObjectPropertiesDeep",
-				"title": "CherryPucker: Sort Object Properties (Deep)"
+				"title": "CherryPucker: Sort Object Properties (Deep)",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.movePropertyUp",
-				"title": "CherryPucker: Move Property Up"
+				"title": "CherryPucker: Move Property Up",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.movePropertyDown",
-				"title": "CherryPucker: Move Property Down"
+				"title": "CherryPucker: Move Property Down",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.deleteProperty",
-				"title": "CherryPucker: Delete Property"
+				"title": "CherryPucker: Delete Property",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.sortObjectArrayByPropertyValueAscending",
-				"title": "CherryPucker: Sort Object Array by Property Value (Ascending)"
+				"title": "CherryPucker: Sort Object Array by Property Value (Ascending)",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.sortObjectArrayByPropertyValueDescending",
-				"title": "CherryPucker: Sort Object Array by Property Value (Descending)"
+				"title": "CherryPucker: Sort Object Array by Property Value (Descending)",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.deleteObjectsFromArrayByPropertyValue",
-				"title": "CherryPucker: Delete Objects From Array by Property Value"
+				"title": "CherryPucker: Delete Objects From Array by Property Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.copyObjectsFromArrayByPropertyValue",
-				"title": "CherryPucker: Copy Objects From Array by Property Value"
+				"title": "CherryPucker: Copy Objects From Array by Property Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.cutObjectsFromArrayByPropertyValue",
-				"title": "CherryPucker: Cut Objects From Array by Property Value"
+				"title": "CherryPucker: Cut Objects From Array by Property Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.setObjectsArrayPropertyValue",
-				"title": "CherryPucker: Set Objects Array Property Value"
+				"title": "CherryPucker: Set Objects Array Property Value",
+				"enablement": "editorTextFocus"
 			},
 			{
 				"command": "cherryPucker.showPickerForAllCommands",
-				"title": "CherryPucker: Show Picker for All Commands"
+				"title": "CherryPucker: Show Picker for All Commands",
+				"enablement": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.applySuggestedKeybindings",
+				"title": "CherryPucker: Apply Suggested Keybindings"
+			},
+			{
+				"command": "cherryPucker.removeSuggestedKeybindings",
+				"title": "CherryPucker: Remove Suggested Keybindings"
 			}
 		],
 		"configuration": {
@@ -284,7 +332,194 @@
 					"description": "Template 10 text"
 				}
 			}
-		}
+		},
+		"keybindings": [
+			{
+				"command": "cherryPucker.copyObject",
+				"key": "alt+insert o",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyObjectsFromArrayByPropertyValue",
+				"key": "alt+insert ctrl+v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyObjectValue",
+				"key": "insert v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyObjectValueQuoted",
+				"key": "insert shift+v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyProperty",
+				"key": "alt+insert alt+p",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyPropertyName",
+				"key": "alt+insert alt+n",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyPropertyValue",
+				"key": "alt+insert alt+v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate1",
+				"key": "alt+insert shift+1",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate10",
+				"key": "alt+insert shift+0",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate2",
+				"key": "alt+insert shift+2",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate3",
+				"key": "alt+insert shift+3",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate4",
+				"key": "alt+insert shift+3",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate5",
+				"key": "alt+insert shift+5",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate6",
+				"key": "alt+insert shift+6",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate7",
+				"key": "alt+insert shift+7",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate8",
+				"key": "alt+insert shift+8",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.copyTemplate9",
+				"key": "alt+insert shift+9",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.cutObjectsFromArrayByPropertyValue",
+				"key": "alt+delete ctrl+x",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.deleteObjectsFromArrayByPropertyValue",
+				"key": "alt+delete ctrl+v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.deleteProperty",
+				"key": "alt+delete p",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.deletePropertyName",
+				"key": "alt+delete n",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.deletePropertyValue",
+				"key": "alt+delete v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.dupeObject",
+				"key": "alt+insert ctrl+d",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.dupeProperty",
+				"key": "alt+insert p",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.jumpToPropertyName",
+				"key": "insert n",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.movePropertyDown",
+				"key": "ctrl+alt+shift+down",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.movePropertyUp",
+				"key": "ctrl+alt+shift+up",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.pastePropertyName",
+				"key": "alt+insert n",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.pastePropertyNameAndSelect",
+				"key": "alt+insert shift+n",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.pastePropertyValue",
+				"key": "alt+insert v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.pastePropertyValueAndSelect",
+				"key": "alt+insert shift+v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.setObjectsArrayPropertyValue",
+				"key": "alt+insert ctrl+alt+v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.showPickerForAllCommands",
+				"key": "alt+` f12",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.sortObjectArrayByPropertyValueAscending",
+				"key": "alt+insert ctrl+alt+v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.sortObjectArrayByPropertyValueDescending",
+				"key": "alt+insert ctrl+alt+shift+v",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.sortObjectProperties",
+				"key": "alt+insert ctrl+p",
+				"when": "editorTextFocus"
+			},
+			{
+				"command": "cherryPucker.sortObjectPropertiesDeep",
+				"key": "alt+insert ctrl+shift+p",
+				"when": "editorTextFocus"
+			}
+		]
 	},
 	"devDependencies": {
 		"@types/node": "^22.15.3",

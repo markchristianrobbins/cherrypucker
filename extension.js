@@ -1,5 +1,7 @@
 const vscode = require('vscode');
 const jsonc = require('jsonc-parser');
+const fs = require('fs');
+const path = require('path');
 
 function resolvePath(obj, path) {
 	if (obj == null) return undefined;
@@ -20,6 +22,101 @@ function truncateForNotification(text, max = 140) {
 
 function notifyClipboard(action, text) {
 	vscode.window.showInformationMessage(`CherryPucker: ${action} -> ${truncateForNotification(text)}`);
+}
+
+const SUGGESTED_KEYBINDINGS = [
+	{ command: 'cherryPucker.copyObject', key: 'alt+insert o', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyObjectsFromArrayByPropertyValue', key: 'alt+insert ctrl+v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyObjectValue', key: 'insert v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyObjectValueQuoted', key: 'insert shift+v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyProperty', key: 'alt+insert alt+p', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyPropertyName', key: 'alt+insert alt+n', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyPropertyValue', key: 'alt+insert alt+v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate1', key: 'alt+insert shift+1', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate10', key: 'alt+insert shift+0', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate2', key: 'alt+insert shift+2', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate3', key: 'alt+insert shift+3', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate4', key: 'alt+insert shift+3', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate5', key: 'alt+insert shift+5', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate6', key: 'alt+insert shift+6', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate7', key: 'alt+insert shift+7', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate8', key: 'alt+insert shift+8', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.copyTemplate9', key: 'alt+insert shift+9', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.cutObjectsFromArrayByPropertyValue', key: 'alt+delete ctrl+x', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.deleteObjectsFromArrayByPropertyValue', key: 'alt+delete ctrl+v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.deleteProperty', key: 'alt+delete p', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.deletePropertyName', key: 'alt+delete n', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.deletePropertyValue', key: 'alt+delete v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.dupeObject', key: 'alt+insert ctrl+d', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.dupeProperty', key: 'alt+insert p', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.jumpToPropertyName', key: 'insert n', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.movePropertyDown', key: 'ctrl+alt+shift+down', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.movePropertyUp', key: 'ctrl+alt+shift+up', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.pastePropertyName', key: 'alt+insert n', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.pastePropertyNameAndSelect', key: 'alt+insert shift+n', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.pastePropertyValue', key: 'alt+insert v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.pastePropertyValueAndSelect', key: 'alt+insert shift+v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.setObjectsArrayPropertyValue', key: 'alt+insert ctrl+alt+v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.showPickerForAllCommands', key: 'alt+` f12', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.sortObjectArrayByPropertyValueAscending', key: 'alt+insert ctrl+alt+v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.sortObjectArrayByPropertyValueDescending', key: 'alt+insert ctrl+alt+shift+v', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.sortObjectProperties', key: 'alt+insert ctrl+p', when: 'editorTextFocus' },
+	{ command: 'cherryPucker.sortObjectPropertiesDeep', key: 'alt+insert ctrl+shift+p', when: 'editorTextFocus' },
+];
+
+function getUserKeybindingsPath() {
+	return path.join(process.env.APPDATA || '', 'Code', 'User', 'keybindings.json');
+}
+
+function readUserKeybindings() {
+	const kbPath = getUserKeybindingsPath();
+	if (!fs.existsSync(kbPath)) return { kbPath, bindings: [] };
+	const raw = fs.readFileSync(kbPath, 'utf8');
+	const parsed = jsonc.parse(raw);
+	if (!Array.isArray(parsed)) throw new Error('keybindings.json must contain a JSON array.');
+	return { kbPath, bindings: parsed };
+}
+
+function writeUserKeybindings(kbPath, bindings) {
+	fs.writeFileSync(kbPath, `${JSON.stringify(bindings, null, '\t')}\n`, 'utf8');
+}
+
+async function runApplySuggestedBindings() {
+	try {
+		const { kbPath, bindings } = readUserKeybindings();
+		const existing = Array.isArray(bindings) ? [...bindings] : [];
+		const applied = [];
+		const duplicates = [];
+
+		for (const suggested of SUGGESTED_KEYBINDINGS) {
+			const dup = existing.find((b) => String(b.key || '').toLowerCase() === suggested.key.toLowerCase());
+			if (dup) {
+				duplicates.push(`${suggested.command}, ${suggested.key}, existing: ${dup.command || '(unknown)'}`);
+				continue;
+			}
+			existing.push({ key: suggested.key, command: suggested.command, when: suggested.when });
+			applied.push(suggested);
+		}
+
+		writeUserKeybindings(kbPath, existing);
+		if (duplicates.length) await vscode.env.clipboard.writeText(duplicates.join('\n'));
+		vscode.window.showInformationMessage(`CherryPucker: Applied ${applied.length} suggested keybindings. Duplicates: ${duplicates.length}${duplicates.length ? ' (copied to clipboard)' : ''}`);
+	} catch (err) {
+		vscode.window.showErrorMessage(`CherryPucker: Failed to apply suggested keybindings: ${err.message}`);
+	}
+}
+
+async function runRemoveSuggestedBindings() {
+	try {
+		const { kbPath, bindings } = readUserKeybindings();
+		const before = bindings.length;
+		const suggestedPairs = new Set(SUGGESTED_KEYBINDINGS.map((s) => `${s.command}@@${s.key.toLowerCase()}`));
+		const filtered = bindings.filter((b) => !suggestedPairs.has(`${b.command}@@${String(b.key || '').toLowerCase()}`));
+		writeUserKeybindings(kbPath, filtered);
+		vscode.window.showInformationMessage(`CherryPucker: Removed ${before - filtered.length} suggested keybindings.`);
+	} catch (err) {
+		vscode.window.showErrorMessage(`CherryPucker: Failed to remove suggested keybindings: ${err.message}`);
+	}
 }
 
 function substituteTemplate(template, data) {
@@ -581,6 +678,8 @@ function activate(context) {
 	reg('cherryPucker.cutObjectsFromArrayByPropertyValue', () => runArrayCommand('cutObjectsFromArrayByPropertyValue'));
 	reg('cherryPucker.setObjectsArrayPropertyValue', () => runArrayCommand('setObjectsArrayPropertyValue'));
 	reg('cherryPucker.showPickerForAllCommands', () => runShowPickerForAllCommands());
+	reg('cherryPucker.applySuggestedKeybindings', () => runApplySuggestedBindings());
+	reg('cherryPucker.removeSuggestedKeybindings', () => runRemoveSuggestedBindings());
 }
 
 function deactivate() {}

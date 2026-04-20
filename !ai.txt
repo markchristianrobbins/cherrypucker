@@ -130,3 +130,12 @@ cherryPucker.sortObjectPropertiesDeep,					alt+insert ctrl+shift+p
 
 add a command to apply the suggested bindings, do not set bindings that exist, but notify and put the duplicate bindings on clipboard
 add a command to remove the suggested bindings
+
+
+cherryPucker.copyTemplate4, alt+insert shift+3, existing: cherryPucker.copyTemplate3
+cherryPucker.dupeProperty, alt+insert p, existing: projectManager.addToFavorites
+cherryPucker.pastePropertyName, alt+insert n, existing: Notes.newNote
+cherryPucker.pastePropertyValue, alt+insert v, existing: multiCommand.bumpAndSync
+cherryPucker.pastePropertyValueAndSelect, alt+insert shift+v, existing: workbench.action.tasks.runTask
+cherryPucker.sortObjectArrayByPropertyValueAscending, alt+insert ctrl+alt+v, existing: cherryPucker.setObjectsArrayPropertyValue
+cherryPucker.sortObjectProperties, alt+insert ctrl+p, existing: projectManager.saveProject
