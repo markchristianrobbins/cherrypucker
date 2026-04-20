@@ -1,0 +1,23 @@
+extension name: CherryPucker
+need a vs code extension that has the following:
+
+settings:
+10 templates
+templateX: multiline text
+
+commands:
+10 commands
+copy template X
+
+functionality:
+when copy template X occurs,
+with the current json object the cursor is in,
+fill in the X template with the values of the object
+using the syntax ${property}
+show a notification of the copied text
+
+other commands:
+copy object value (of object cursor is in)
+copy object value quoted (of object cursor is in)
+
+each of those commands show a picklist of object properties and values
