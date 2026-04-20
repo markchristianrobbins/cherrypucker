@@ -1,138 +1,172 @@
 {
-  "name": "cherrypucker",
-  "displayName": "CherryPucker",
-  "publisher": "cherrypucker",
-  "version": "0.0.1",
-  "description": "Copy JSON-driven templates and property values from the object your cursor is inside.",
-  "main": "extension.js",
-  "engines": {
-    "vscode": "^1.70.0"
-  },
-  "categories": [
-    "Other"
-  ],
-  "activationEvents": [
-    "onCommand:cherryPucker.copyTemplate1",
-    "onCommand:cherryPucker.copyTemplate2",
-    "onCommand:cherryPucker.copyTemplate3",
-    "onCommand:cherryPucker.copyTemplate4",
-    "onCommand:cherryPucker.copyTemplate5",
-    "onCommand:cherryPucker.copyTemplate6",
-    "onCommand:cherryPucker.copyTemplate7",
-    "onCommand:cherryPucker.copyTemplate8",
-    "onCommand:cherryPucker.copyTemplate9",
-    "onCommand:cherryPucker.copyTemplate10",
-    "onCommand:cherryPucker.copyObjectValue",
-    "onCommand:cherryPucker.copyObjectValueQuoted"
-  ],
-  "contributes": {
-    "commands": [
-      {
-        "command": "cherryPucker.copyTemplate1",
-        "title": "CherryPucker: Copy Template 1"
-      },
-      {
-        "command": "cherryPucker.copyTemplate2",
-        "title": "CherryPucker: Copy Template 2"
-      },
-      {
-        "command": "cherryPucker.copyTemplate3",
-        "title": "CherryPucker: Copy Template 3"
-      },
-      {
-        "command": "cherryPucker.copyTemplate4",
-        "title": "CherryPucker: Copy Template 4"
-      },
-      {
-        "command": "cherryPucker.copyTemplate5",
-        "title": "CherryPucker: Copy Template 5"
-      },
-      {
-        "command": "cherryPucker.copyTemplate6",
-        "title": "CherryPucker: Copy Template 6"
-      },
-      {
-        "command": "cherryPucker.copyTemplate7",
-        "title": "CherryPucker: Copy Template 7"
-      },
-      {
-        "command": "cherryPucker.copyTemplate8",
-        "title": "CherryPucker: Copy Template 8"
-      },
-      {
-        "command": "cherryPucker.copyTemplate9",
-        "title": "CherryPucker: Copy Template 9"
-      },
-      {
-        "command": "cherryPucker.copyTemplate10",
-        "title": "CherryPucker: Copy Template 10"
-      },
-      {
-        "command": "cherryPucker.copyObjectValue",
-        "title": "CherryPucker: Copy Object Value"
-      },
-      {
-        "command": "cherryPucker.copyObjectValueQuoted",
-        "title": "CherryPucker: Copy Object Value (Quoted)"
-      }
-    ],
-    "configuration": {
-      "title": "CherryPucker Templates",
-      "properties": {
-        "cherryPucker.template1": {
-          "type": "string",
-          "default": "Title: ${title}\\nValue: ${value}",
-          "description": "Template 1 text"
-        },
-        "cherryPucker.template2": {
-          "type": "string",
-          "default": "Name: ${name}\\nId: ${id}",
-          "description": "Template 2 text"
-        },
-        "cherryPucker.template3": {
-          "type": "string",
-          "default": "Key: ${key}\\nDescription: ${description}",
-          "description": "Template 3 text"
-        },
-        "cherryPucker.template4": {
-          "type": "string",
-          "default": "Summary: ${summary}\\nDetail: ${detail}",
-          "description": "Template 4 text"
-        },
-        "cherryPucker.template5": {
-          "type": "string",
-          "default": "Label: ${label}\\nValue: ${value}",
-          "description": "Template 5 text"
-        },
-        "cherryPucker.template6": {
-          "type": "string",
-          "default": "Path: ${path}\\nMethod: ${method}",
-          "description": "Template 6 text"
-        },
-        "cherryPucker.template7": {
-          "type": "string",
-          "default": "Field: ${field}\\nType: ${type}",
-          "description": "Template 7 text"
-        },
-        "cherryPucker.template8": {
-          "type": "string",
-          "default": "Message: ${message}\\nCode: ${code}",
-          "description": "Template 8 text"
-        },
-        "cherryPucker.template9": {
-          "type": "string",
-          "default": "User: ${user}\\nEmail: ${email}",
-          "description": "Template 9 text"
-        },
-        "cherryPucker.template10": {
-          "type": "string",
-          "default": "Custom: ${custom}\\nNotes: ${notes}",
-          "description": "Template 10 text"
-        }
-      }
-    }
-  },
-  "dependencies": {
-    "jsonc-parser": "^3.2.0"
-  }
+	"name": "cherrypucker",
+	"displayName": "CherryPucker",
+	"publisher": "cherrypucker",
+	"version": "0.0.1",
+	"description": "Copy JSON-driven templates and property values from the object your cursor is inside.",
+	"license": "MIT",
+	"main": "extension.js",
+	"engines": {
+		"vscode": "^1.70.0",
+		"node": ">=18"
+	},
+	"icon": "icon.png",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/markchristianrobbins/cherrypucker.git"
+	},
+	"homepage": "https://github.com/markchristianrobbins/cherrypucker",
+	"bugs": {
+		"url": "https://github.com/markchristianrobbins/cherrypucker/issues"
+	},
+	"keywords": [
+		"json",
+		"template",
+		"copy",
+		"clipboard",
+		"vscode-extension"
+	],
+	"categories": [
+		"Other"
+	],
+	"files": [
+		"extension.js",
+		"README.md",
+		"LICENSE",
+		"icon.png"
+	],
+	"scripts": {
+		"lint": "echo \"No lint configured yet\"",
+		"test": "echo \"No tests configured yet\"",
+		"package": "vsce package"
+	},
+	"activationEvents": [
+		"onCommand:cherryPucker.copyTemplate1",
+		"onCommand:cherryPucker.copyTemplate2",
+		"onCommand:cherryPucker.copyTemplate3",
+		"onCommand:cherryPucker.copyTemplate4",
+		"onCommand:cherryPucker.copyTemplate5",
+		"onCommand:cherryPucker.copyTemplate6",
+		"onCommand:cherryPucker.copyTemplate7",
+		"onCommand:cherryPucker.copyTemplate8",
+		"onCommand:cherryPucker.copyTemplate9",
+		"onCommand:cherryPucker.copyTemplate10",
+		"onCommand:cherryPucker.copyObjectValue",
+		"onCommand:cherryPucker.copyObjectValueQuoted"
+	],
+	"contributes": {
+		"commands": [
+			{
+				"command": "cherryPucker.copyTemplate1",
+				"title": "CherryPucker: Copy Template 1"
+			},
+			{
+				"command": "cherryPucker.copyTemplate2",
+				"title": "CherryPucker: Copy Template 2"
+			},
+			{
+				"command": "cherryPucker.copyTemplate3",
+				"title": "CherryPucker: Copy Template 3"
+			},
+			{
+				"command": "cherryPucker.copyTemplate4",
+				"title": "CherryPucker: Copy Template 4"
+			},
+			{
+				"command": "cherryPucker.copyTemplate5",
+				"title": "CherryPucker: Copy Template 5"
+			},
+			{
+				"command": "cherryPucker.copyTemplate6",
+				"title": "CherryPucker: Copy Template 6"
+			},
+			{
+				"command": "cherryPucker.copyTemplate7",
+				"title": "CherryPucker: Copy Template 7"
+			},
+			{
+				"command": "cherryPucker.copyTemplate8",
+				"title": "CherryPucker: Copy Template 8"
+			},
+			{
+				"command": "cherryPucker.copyTemplate9",
+				"title": "CherryPucker: Copy Template 9"
+			},
+			{
+				"command": "cherryPucker.copyTemplate10",
+				"title": "CherryPucker: Copy Template 10"
+			},
+			{
+				"command": "cherryPucker.copyObjectValue",
+				"title": "CherryPucker: Copy Object Value"
+			},
+			{
+				"command": "cherryPucker.copyObjectValueQuoted",
+				"title": "CherryPucker: Copy Object Value (Quoted)"
+			}
+		],
+		"configuration": {
+			"title": "CherryPucker Templates",
+			"properties": {
+				"cherryPucker.template1": {
+					"type": "string",
+					"default": "Title: ${title}\\nValue: ${value}",
+					"description": "Template 1 text"
+				},
+				"cherryPucker.template2": {
+					"type": "string",
+					"default": "Name: ${name}\\nId: ${id}",
+					"description": "Template 2 text"
+				},
+				"cherryPucker.template3": {
+					"type": "string",
+					"default": "Key: ${key}\\nDescription: ${description}",
+					"description": "Template 3 text"
+				},
+				"cherryPucker.template4": {
+					"type": "string",
+					"default": "Summary: ${summary}\\nDetail: ${detail}",
+					"description": "Template 4 text"
+				},
+				"cherryPucker.template5": {
+					"type": "string",
+					"default": "Label: ${label}\\nValue: ${value}",
+					"description": "Template 5 text"
+				},
+				"cherryPucker.template6": {
+					"type": "string",
+					"default": "Path: ${path}\\nMethod: ${method}",
+					"description": "Template 6 text"
+				},
+				"cherryPucker.template7": {
+					"type": "string",
+					"default": "Field: ${field}\\nType: ${type}",
+					"description": "Template 7 text"
+				},
+				"cherryPucker.template8": {
+					"type": "string",
+					"default": "Message: ${message}\\nCode: ${code}",
+					"description": "Template 8 text"
+				},
+				"cherryPucker.template9": {
+					"type": "string",
+					"default": "User: ${user}\\nEmail: ${email}",
+					"description": "Template 9 text"
+				},
+				"cherryPucker.template10": {
+					"type": "string",
+					"default": "Custom: ${custom}\\nNotes: ${notes}",
+					"description": "Template 10 text"
+				}
+			}
+		}
+	},
+	"devDependencies": {
+		"@types/node": "^22.15.3",
+		"@types/vscode": "^1.70.0",
+		"@vscode/vsce": "^3.6.2"
+	},
+	"dependencies": {
+		"jsonc-parser": "^3.2.0"
+	}
 }
